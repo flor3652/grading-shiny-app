@@ -6,14 +6,16 @@ shinyUI(pageWithSidebar(
   
   sidebarPanel(
     numericInput("numMiss", "Number of Points Missed:", 0),
-    actionButton("submitButton", "Add to Data Set:"),
+    actionButton("submitButton", "Add to Data Set"),
     br(),
     br(),
-    textOutput("score")
+    textOutput("score"),
+    br()
   ),
   
   mainPanel(
-    
+    plotOutput("dataPlot"),
+    textOutput("data")
   )
   
 ))
