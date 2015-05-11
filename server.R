@@ -1,17 +1,25 @@
 library(shiny)
 
 classData <- numeric()
-total <- 125 # The total number of points on the test
+total <- 300 # The total number of points on the test
 classData[1] <- 0
 
 shinyServer(function(input, output){
   
+  missed <- reactive({
+    eval(parse(text=input$numMiss))
+  })
+  
+  output$sumMissed <- renderPrint({
+    cat("Total Missed:", missed())
+  })
+  
   output$score <- renderPrint({
-    cat(total-input$numMiss, "/", total, " = ", (total-input$numMiss)/total, sep="")
+    cat(total-missed(), "/", total, " = ", (total-missed())/total, sep="")
   })
   
   entered_score <- reactive({
-    (total-input$numMiss)/total
+    (total-missed())/total
   })
   
   update_data <- reactive({
